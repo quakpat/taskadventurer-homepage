@@ -4,21 +4,22 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-// Simple colored placeholders using CSS instead of external images
+// Actual screenshots from Cloudinary
 const screenshots = [
-  { color: '#FF6B35', text: 'Screenshot 1' },
-  { color: '#FF8C42', text: 'Screenshot 2' },
-  { color: '#FFB347', text: 'Screenshot 3' },
-  { color: '#FFD93D', text: 'Screenshot 4' },
-  { color: '#6BCF7F', text: 'Screenshot 5' },
-  { color: '#4D96FF', text: 'Screenshot 6' },
-  { color: '#9B59B6', text: 'Screenshot 7' },
-  { color: '#E74C3C', text: 'Screenshot 8' },
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125950/01_xl7ko6.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/02_la37sh.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125950/03_g3ejgh.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/04_waw4ly.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/05_xv8n5y.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/06_gz6vsy.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/07_mg8pgl.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/08_jxanw4.png',
 ]
 
 export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   // Auto-play functionality
   useEffect(() => {
@@ -67,11 +68,19 @@ export default function ScreenshotCarousel() {
     }
   }
 
+  const handleImageLoad = () => {
+    setImageLoaded(true)
+  }
+
+  const handleImageError = () => {
+    setImageLoaded(false)
+  }
+
   return (
     <div className="relative w-full max-w-sm mx-auto">
       {/* Debug info */}
       <div className="text-xs text-gray-500 mb-2 text-center">
-        Image {currentIndex + 1}/8 - Loaded
+        Image {currentIndex + 1}/8 - {imageLoaded ? 'Loaded' : 'Loading...'}
       </div>
       
       {/* Main Carousel */}
@@ -94,15 +103,23 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-            <div 
-              className="relative w-full h-[600px] lg:h-[700px] flex items-center justify-center"
-              style={{ backgroundColor: screenshots[currentIndex].color }}
-            >
-              <div className="text-center text-white">
-                <div className="text-6xl mb-4">📱</div>
-                <div className="text-2xl font-bold mb-2">{screenshots[currentIndex].text}</div>
-                <div className="text-lg opacity-80">TaskAdventurer App</div>
-              </div>
+            <div className="relative w-full h-[600px] lg:h-[700px] bg-gray-100">
+              <img
+                src={screenshots[currentIndex]}
+                alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
+                className="w-full h-full object-cover"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{ display: imageLoaded ? 'block' : 'none' }}
+              />
+              {!imageLoaded && (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">📱</div>
+                    <div className="text-sm text-gray-500">Loading Screenshot {currentIndex + 1}...</div>
+                  </div>
+                </div>
+              )}
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
