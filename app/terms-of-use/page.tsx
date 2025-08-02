@@ -53,9 +53,9 @@ export default function TermsOfUse() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="max-w-4xl mx-auto prose prose-lg"
+            className="max-w-4xl mx-auto"
           >
-            <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="bg-white rounded-2xl shadow-lg p-8 lg:p-12 prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-h2:text-2xl prose-h2:mb-4 prose-h3:text-xl prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4 prose-ul:text-gray-700 prose-ul:space-y-2 prose-li:mb-1">
               <h2>1. Acceptance of Terms</h2>
               <p>
                 By downloading, installing, or using the TaskAdventurer mobile application ("App"), 
