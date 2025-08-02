@@ -43,20 +43,17 @@ export default function HomePage() {
     {
       name: "Sarah M.",
       role: "Parent of 2",
-      content: "My kids actually look forward to doing their chores now! The adventurer theme is brilliant.",
-      rating: 5
+      content: "My kids actually look forward to doing their chores now! The adventurer theme is brilliant."
     },
     {
       name: "Mike R.",
       role: "Father of 3",
-      content: "Finally found an app that makes task management fun for the whole family. Highly recommend!",
-      rating: 5
+      content: "Finally found an app that makes task management fun for the whole family. Highly recommend!"
     },
     {
       name: "Lisa K.",
       role: "Mother of 1",
-      content: "The reward system is perfect. My daughter loves collecting coins and unlocking new adventurers.",
-      rating: 5
+      content: "The reward system is perfect. My daughter loves collecting coins and unlocking new adventurers."
     }
   ]
 
@@ -112,20 +109,12 @@ export default function HomePage() {
               
               <div className="flex items-center space-x-6 text-sm text-gray-500">
                 <div className="flex items-center">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full bg-primary-200 border-2 border-white"></div>
-                    ))}
-                  </div>
-                  <span className="ml-3">10,000+ families trust us</span>
+                  <Shield className="w-4 h-4 mr-2" />
+                  <span>Safe & Family-Friendly</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <span className="ml-2">4.9/5 rating</span>
+                  <Users className="w-4 h-4 mr-2" />
+                  <span>Perfect for All Ages</span>
                 </div>
               </div>
             </motion.div>
@@ -194,8 +183,8 @@ export default function HomePage() {
               What Parents Are Saying
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join thousands of families who have transformed their daily routines 
-              with TaskAdventurer.
+              See how TaskAdventurer is helping families transform their daily routines 
+              into exciting adventures.
             </p>
           </motion.div>
           
