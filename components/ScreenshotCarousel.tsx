@@ -4,22 +4,21 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-// Temporary placeholder images until we fix the hosting issue
+// Simple colored placeholders using CSS instead of external images
 const screenshots = [
-  'https://via.placeholder.com/400x800/FF6B35/FFFFFF?text=Screenshot+1',
-  'https://via.placeholder.com/400x800/FF8C42/FFFFFF?text=Screenshot+2',
-  'https://via.placeholder.com/400x800/FFB347/FFFFFF?text=Screenshot+3',
-  'https://via.placeholder.com/400x800/FFD93D/FFFFFF?text=Screenshot+4',
-  'https://via.placeholder.com/400x800/6BCF7F/FFFFFF?text=Screenshot+5',
-  'https://via.placeholder.com/400x800/4D96FF/FFFFFF?text=Screenshot+6',
-  'https://via.placeholder.com/400x800/9B59B6/FFFFFF?text=Screenshot+7',
-  'https://via.placeholder.com/400x800/E74C3C/FFFFFF?text=Screenshot+8',
+  { color: '#FF6B35', text: 'Screenshot 1' },
+  { color: '#FF8C42', text: 'Screenshot 2' },
+  { color: '#FFB347', text: 'Screenshot 3' },
+  { color: '#FFD93D', text: 'Screenshot 4' },
+  { color: '#6BCF7F', text: 'Screenshot 5' },
+  { color: '#4D96FF', text: 'Screenshot 6' },
+  { color: '#9B59B6', text: 'Screenshot 7' },
+  { color: '#E74C3C', text: 'Screenshot 8' },
 ]
 
 export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   // Auto-play functionality
   useEffect(() => {
@@ -68,21 +67,11 @@ export default function ScreenshotCarousel() {
     }
   }
 
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-    console.log('Image loaded successfully:', screenshots[currentIndex])
-  }
-
-  const handleImageError = () => {
-    setImageLoaded(false)
-    console.error('Failed to load image:', screenshots[currentIndex])
-  }
-
   return (
     <div className="relative w-full max-w-sm mx-auto">
       {/* Debug info */}
       <div className="text-xs text-gray-500 mb-2 text-center">
-        Image {currentIndex + 1}/8 - {imageLoaded ? 'Loaded' : 'Loading...'}
+        Image {currentIndex + 1}/8 - Loaded
       </div>
       
       {/* Main Carousel */}
@@ -105,24 +94,15 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-            <div className="relative w-full h-[600px] lg:h-[700px] bg-gray-100">
-              <img
-                src={screenshots[currentIndex]}
-                alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
-                className="w-full h-full object-cover"
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                style={{ display: imageLoaded ? 'block' : 'none' }}
-              />
-              {!imageLoaded && (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📱</div>
-                    <div className="text-sm text-gray-500">Screenshot {currentIndex + 1}</div>
-                    <div className="text-xs text-gray-400 mt-1">Loading...</div>
-                  </div>
-                </div>
-              )}
+            <div 
+              className="relative w-full h-[600px] lg:h-[700px] flex items-center justify-center"
+              style={{ backgroundColor: screenshots[currentIndex].color }}
+            >
+              <div className="text-center text-white">
+                <div className="text-6xl mb-4">📱</div>
+                <div className="text-2xl font-bold mb-2">{screenshots[currentIndex].text}</div>
+                <div className="text-lg opacity-80">TaskAdventurer App</div>
+              </div>
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
