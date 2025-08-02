@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
 
 const screenshots = [
   '/screenshots/01.png',
@@ -20,6 +19,7 @@ export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
   const [imageError, setImageError] = useState<string | null>(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   // Auto-play functionality
   useEffect(() => {
@@ -71,16 +71,22 @@ export default function ScreenshotCarousel() {
   const handleImageError = (src: string) => {
     console.error('Failed to load image:', src)
     setImageError(src)
+    setImageLoaded(false)
+  }
+
+  const handleImageLoad = () => {
+    console.log('Image loaded successfully:', screenshots[currentIndex])
+    setImageLoaded(true)
+    setImageError(null)
   }
 
   return (
     <div className="relative w-full max-w-sm mx-auto">
       {/* Debug info */}
-      {imageError && (
-        <div className="text-red-500 text-sm mb-2">
-          Failed to load: {imageError}
-        </div>
-      )}
+      <div className="text-xs text-gray-500 mb-2">
+        Current: {currentIndex + 1}/{screenshots.length} - {imageLoaded ? 'Loaded' : 'Loading...'}
+        {imageError && <span className="text-red-500"> - Error: {imageError}</span>}
+      </div>
       
       {/* Main Carousel */}
       <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
@@ -103,14 +109,12 @@ export default function ScreenshotCarousel() {
             className="absolute w-full h-full"
           >
             <div className="relative w-full h-[600px] lg:h-[700px]">
-              <Image
+              <img
                 src={screenshots[currentIndex]}
                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
-                fill
-                className="object-cover"
-                priority={currentIndex < 2}
+                className="w-full h-full object-cover"
                 onError={() => handleImageError(screenshots[currentIndex])}
-                unoptimized
+                onLoad={handleImageLoad}
               />
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
