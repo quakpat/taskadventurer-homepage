@@ -40,7 +40,7 @@ export default function Footer() {
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="mailto:support@taskadventurer.com" className="text-gray-400 hover:text-white transition-colors">
+              <a href="mailto:support@mail.taskadventurer.com" className="text-gray-400 hover:text-white transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
