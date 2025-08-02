@@ -19,7 +19,6 @@ const screenshots = [
 export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   // Auto-play functionality
   useEffect(() => {
@@ -68,21 +67,8 @@ export default function ScreenshotCarousel() {
     }
   }
 
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-  }
-
-  const handleImageError = () => {
-    setImageLoaded(false)
-  }
-
   return (
     <div className="relative w-full max-w-sm mx-auto">
-      {/* Debug info */}
-      <div className="text-xs text-gray-500 mb-2 text-center">
-        Image {currentIndex + 1}/8 - {imageLoaded ? 'Loaded' : 'Loading...'}
-      </div>
-      
       {/* Main Carousel */}
       <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
         <AnimatePresence initial={false} custom={direction}>
@@ -108,18 +94,7 @@ export default function ScreenshotCarousel() {
                 src={screenshots[currentIndex]}
                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
                 className="w-full h-full object-cover"
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                style={{ display: imageLoaded ? 'block' : 'none' }}
               />
-              {!imageLoaded && (
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📱</div>
-                    <div className="text-sm text-gray-500">Loading Screenshot {currentIndex + 1}...</div>
-                  </div>
-                </div>
-              )}
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>

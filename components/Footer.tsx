@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Download, Mail, Twitter, Facebook, Instagram } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -13,8 +14,15 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">T</span>
+              <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+                <Image
+                  src="https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/Taskcoin_pe4m9k.png"
+                  alt="Taskcoin"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover"
+                  unoptimized
+                />
               </div>
               <span className="text-xl font-bold">TaskAdventurer</span>
             </div>

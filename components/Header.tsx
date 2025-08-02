@@ -22,7 +22,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/Taskcoin_pe4m9k.png"
                 alt="Taskcoin"

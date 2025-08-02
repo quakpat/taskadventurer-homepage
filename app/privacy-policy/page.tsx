@@ -188,8 +188,8 @@ export default function PrivacyPolicy() {
                 </p>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-gray-700">
-                    <strong>Email:</strong> privacy@taskadventurer.com<br />
-                    <strong>Address:</strong> TaskAdventurer Privacy Team<br />
+                    <strong>Email:</strong> support@taskadventurer.com<br />
+                    <strong>Address:</strong> TaskAdventurer Support Team<br />
                     <strong>Response Time:</strong> We aim to respond to all inquiries within 48 hours
                   </p>
                 </div>
