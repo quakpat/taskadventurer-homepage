@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js
+.next/
+out/
+
+# Production
+/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Expo (from TaskAdventurer app)
+.expo/
+
+# TaskAdventurer app directory (separate repository)
+TaskAdventurer/
+
+# Advertising materials (not needed for homepage)
+Advertising/
+
+# MoodBoard (not needed for homepage)
+MoodBoardHabitOwl/
+
+# App store images (not needed for homepage)
+TaskTreasure_Banner.png
+TaskTreasure_Logo.png 
