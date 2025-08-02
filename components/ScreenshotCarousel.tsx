@@ -3,22 +3,23 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Image from 'next/image'
 
+// Temporary placeholder images until we fix the hosting issue
 const screenshots = [
-  '/screenshots/01.png',
-  '/screenshots/02.png',
-  '/screenshots/03.png',
-  '/screenshots/04.png',
-  '/screenshots/05.png',
-  '/screenshots/06.png',
-  '/screenshots/07.png',
-  '/screenshots/08.png',
+  'https://via.placeholder.com/400x800/FF6B35/FFFFFF?text=Screenshot+1',
+  'https://via.placeholder.com/400x800/FF8C42/FFFFFF?text=Screenshot+2',
+  'https://via.placeholder.com/400x800/FFB347/FFFFFF?text=Screenshot+3',
+  'https://via.placeholder.com/400x800/FFD93D/FFFFFF?text=Screenshot+4',
+  'https://via.placeholder.com/400x800/6BCF7F/FFFFFF?text=Screenshot+5',
+  'https://via.placeholder.com/400x800/4D96FF/FFFFFF?text=Screenshot+6',
+  'https://via.placeholder.com/400x800/9B59B6/FFFFFF?text=Screenshot+7',
+  'https://via.placeholder.com/400x800/E74C3C/FFFFFF?text=Screenshot+8',
 ]
 
 export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   // Auto-play functionality
   useEffect(() => {
@@ -67,8 +68,23 @@ export default function ScreenshotCarousel() {
     }
   }
 
+  const handleImageLoad = () => {
+    setImageLoaded(true)
+    console.log('Image loaded successfully:', screenshots[currentIndex])
+  }
+
+  const handleImageError = () => {
+    setImageLoaded(false)
+    console.error('Failed to load image:', screenshots[currentIndex])
+  }
+
   return (
     <div className="relative w-full max-w-sm mx-auto">
+      {/* Debug info */}
+      <div className="text-xs text-gray-500 mb-2 text-center">
+        Image {currentIndex + 1}/8 - {imageLoaded ? 'Loaded' : 'Loading...'}
+      </div>
+      
       {/* Main Carousel */}
       <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
         <AnimatePresence initial={false} custom={direction}>
@@ -90,17 +106,23 @@ export default function ScreenshotCarousel() {
             className="absolute w-full h-full"
           >
             <div className="relative w-full h-[600px] lg:h-[700px] bg-gray-100">
-              <Image
+              <img
                 src={screenshots[currentIndex]}
                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
-                fill
-                className="object-cover"
-                priority={currentIndex < 2}
-                unoptimized
-                onError={(e) => {
-                  console.error('Failed to load image:', screenshots[currentIndex])
-                }}
+                className="w-full h-full object-cover"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{ display: imageLoaded ? 'block' : 'none' }}
               />
+              {!imageLoaded && (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">📱</div>
+                    <div className="text-sm text-gray-500">Screenshot {currentIndex + 1}</div>
+                    <div className="text-xs text-gray-400 mt-1">Loading...</div>
+                  </div>
+                </div>
+              )}
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
