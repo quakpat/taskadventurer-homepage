@@ -19,6 +19,7 @@ const screenshots = [
 export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [imageError, setImageError] = useState<string | null>(null)
 
   // Auto-play functionality
   useEffect(() => {
@@ -67,8 +68,20 @@ export default function ScreenshotCarousel() {
     }
   }
 
+  const handleImageError = (src: string) => {
+    console.error('Failed to load image:', src)
+    setImageError(src)
+  }
+
   return (
     <div className="relative w-full max-w-sm mx-auto">
+      {/* Debug info */}
+      {imageError && (
+        <div className="text-red-500 text-sm mb-2">
+          Failed to load: {imageError}
+        </div>
+      )}
+      
       {/* Main Carousel */}
       <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
         <AnimatePresence initial={false} custom={direction}>
@@ -96,6 +109,8 @@ export default function ScreenshotCarousel() {
                 fill
                 className="object-cover"
                 priority={currentIndex < 2}
+                onError={() => handleImageError(screenshots[currentIndex])}
+                unoptimized
               />
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
