@@ -70,7 +70,7 @@ export default function ScreenshotCarousel() {
   return (
     <div className="relative w-full max-w-sm mx-auto">
       {/* Main Carousel */}
-      <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white">
+      <div className="relative overflow-hidden rounded-3xl shadow-2xl bg-white h-[600px] lg:h-[700px]">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentIndex}
@@ -89,7 +89,7 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-            <div className="relative w-full h-[600px] lg:h-[700px] bg-gray-100">
+            <div className="relative w-full h-full bg-gray-100">
               <img
                 src={screenshots[currentIndex]}
                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
