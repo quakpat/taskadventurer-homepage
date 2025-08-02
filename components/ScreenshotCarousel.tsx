@@ -89,17 +89,13 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-            <div className="relative w-full h-full bg-gray-100">
-              <img
-                src={screenshots[currentIndex]}
-                alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
-                className="w-full h-full object-cover"
-              />
-              {/* Phone frame overlay */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
-              </div>
-            </div>
+                         <div className="relative w-full h-full bg-gray-100 flex items-center justify-center">
+               <img
+                 src={screenshots[currentIndex]}
+                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
+                 className="w-full h-full object-contain"
+               />
+             </div>
           </motion.div>
         </AnimatePresence>
       </div>
