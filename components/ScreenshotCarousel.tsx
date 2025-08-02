@@ -20,6 +20,7 @@ export default function ScreenshotCarousel() {
   const [direction, setDirection] = useState(0)
   const [imageError, setImageError] = useState<string | null>(null)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [debugInfo, setDebugInfo] = useState<string>('')
 
   // Auto-play functionality
   useEffect(() => {
@@ -72,20 +73,36 @@ export default function ScreenshotCarousel() {
     console.error('Failed to load image:', src)
     setImageError(src)
     setImageLoaded(false)
+    setDebugInfo(`Error loading: ${src}`)
   }
 
   const handleImageLoad = () => {
     console.log('Image loaded successfully:', screenshots[currentIndex])
     setImageLoaded(true)
     setImageError(null)
+    setDebugInfo(`Loaded: ${screenshots[currentIndex]}`)
   }
+
+  // Test image loading on mount
+  useEffect(() => {
+    const testImage = new Image()
+    testImage.onload = () => {
+      setDebugInfo(`Test image loaded: ${screenshots[currentIndex]}`)
+    }
+    testImage.onerror = () => {
+      setDebugInfo(`Test image failed: ${screenshots[currentIndex]}`)
+    }
+    testImage.src = screenshots[currentIndex]
+  }, [currentIndex])
 
   return (
     <div className="relative w-full max-w-sm mx-auto">
       {/* Debug info */}
       <div className="text-xs text-gray-500 mb-2">
-        Current: {currentIndex + 1}/{screenshots.length} - {imageLoaded ? 'Loaded' : 'Loading...'}
-        {imageError && <span className="text-red-500"> - Error: {imageError}</span>}
+        <div>Current: {currentIndex + 1}/{screenshots.length} - {imageLoaded ? 'Loaded' : 'Loading...'}</div>
+        <div>Path: {screenshots[currentIndex]}</div>
+        <div>Debug: {debugInfo}</div>
+        {imageError && <div className="text-red-500">Error: {imageError}</div>}
       </div>
       
       {/* Main Carousel */}
@@ -108,14 +125,25 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-            <div className="relative w-full h-[600px] lg:h-[700px]">
+            <div className="relative w-full h-[600px] lg:h-[700px] bg-gray-100">
               <img
                 src={screenshots[currentIndex]}
                 alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
                 className="w-full h-full object-cover"
                 onError={() => handleImageError(screenshots[currentIndex])}
                 onLoad={handleImageLoad}
+                style={{ display: imageLoaded ? 'block' : 'none' }}
               />
+              {!imageLoaded && !imageError && (
+                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                  Loading image...
+                </div>
+              )}
+              {imageError && (
+                <div className="w-full h-full flex items-center justify-center text-red-400">
+                  Failed to load image
+                </div>
+              )}
               {/* Phone frame overlay */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl"></div>
