@@ -89,7 +89,7 @@ export default function ScreenshotCarousel() {
             onDragEnd={handleDragEnd}
             className="absolute w-full h-full"
           >
-                         <div className="relative w-full h-full bg-gray-100 flex items-center justify-center">
+                         <div className="relative w-full h-full bg-[#cc730d] flex items-center justify-center">
                <img
                  src={screenshots[currentIndex]}
                  alt={`TaskAdventurer Screenshot ${currentIndex + 1}`}
