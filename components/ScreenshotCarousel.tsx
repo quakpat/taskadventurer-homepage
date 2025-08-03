@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const screenshots = [
   'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125950/01_xl7ko6.png',
   'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/02_la37sh.png',
+  'https://res.cloudinary.com/dngg2bd91/image/upload/v1754204130/Colors_cqtqvu.png',
   'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125950/03_g3ejgh.png',
   'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/04_waw4ly.png',
   'https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/05_xv8n5y.png',
@@ -20,15 +21,15 @@ export default function ScreenshotCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
 
-  // Auto-play functionality
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDirection(1)
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % screenshots.length)
-    }, 3000)
+  // Auto-play functionality - DISABLED
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setDirection(1)
+  //     setCurrentIndex((prevIndex) => (prevIndex + 1) % screenshots.length)
+  //   }, 3000)
 
-    return () => clearInterval(timer)
-  }, [])
+  //   return () => clearInterval(timer)
+  // }, [])
 
   const slideVariants = {
     enter: (direction: number) => ({
