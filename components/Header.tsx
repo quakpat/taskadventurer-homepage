@@ -46,14 +46,17 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
-            <motion.button
+            <motion.a
+              href="https://apps.apple.com/ch/app/taskadventurer/id6749378064?l=en-GB"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center px-4 py-2 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
             >
               <Download className="w-4 h-4 mr-2" />
               Download
-            </motion.button>
+            </motion.a>
           </nav>
 
           {/* Mobile menu button */}
@@ -86,14 +89,17 @@ export default function Header() {
                     {item.name}
                   </Link>
                 ))}
-                <motion.button
+                <motion.a
+                  href="https://apps.apple.com/ch/app/taskadventurer/id6749378064?l=en-GB"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full inline-flex items-center justify-center px-4 py-2 bg-primary-500 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download
-                </motion.button>
+                </motion.a>
               </nav>
             </motion.div>
           )}

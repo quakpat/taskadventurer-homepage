@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Star, Download, Shield, Users, Zap, Award, ArrowRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Star, Download, Shield, Users, Zap, Award, ArrowRight, Play, X } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ScreenshotCarousel from '@/components/ScreenshotCarousel'
@@ -11,6 +11,7 @@ import TestimonialCard from '@/components/TestimonialCard'
 
 export default function HomePage() {
   const [currentSection, setCurrentSection] = useState('home')
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
 
   const features = [
     {
@@ -88,22 +89,26 @@ export default function HomePage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <motion.button
+                <motion.a
+                  href="https://apps.apple.com/ch/app/taskadventurer/id6749378064?l=en-GB"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-white font-semibold rounded-xl shadow-lg hover:bg-primary-600 transition-colors"
                 >
                   <Download className="w-5 h-5 mr-2" />
                   Download Now
-                </motion.button>
+                </motion.a>
                 
                 <motion.button
+                  onClick={() => setIsVideoModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center justify-center px-8 py-4 border-2 border-primary-500 text-primary-500 font-semibold rounded-xl hover:bg-primary-50 transition-colors"
                 >
+                  <Play className="w-5 h-5 mr-2" />
                   Watch Demo
-                  <ArrowRight className="w-5 h-5 ml-2" />
                 </motion.button>
               </div>
               
@@ -131,6 +136,58 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-r from-primary-200/20 to-secondary-200/20 rounded-3xl blur-3xl"></div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Video Section */}
+      <section className="py-20 bg-gradient-to-br from-primary-500 to-secondary-500">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              See TaskAdventurer in Action
+            </h2>
+            <p className="text-xl text-primary-100 max-w-3xl mx-auto mb-8">
+              Watch how TaskAdventurer transforms everyday chores into exciting adventures 
+              that your children will love completing.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-900">
+              <video
+                className="w-full h-full object-cover"
+                poster="https://res.cloudinary.com/dngg2bd91/image/upload/v1754125951/Taskcoin_pe4m9k.png"
+                controls
+                preload="metadata"
+              >
+                <source src="https://res.cloudinary.com/dngg2bd91/video/upload/v1754669613/TaskAdventurerIntroLow_pxfpkb.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                <motion.button
+                  onClick={() => setIsVideoModalOpen(true)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg"
+                >
+                  <Play className="w-8 h-8 text-primary-500 ml-1" />
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -221,19 +278,62 @@ export default function HomePage() {
               Download TaskAdventurer today and transform your family's daily routines 
               into exciting quests!
             </p>
-            <motion.button
+            <motion.a
+              href="https://apps.apple.com/ch/app/taskadventurer/id6749378064?l=en-GB"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-500 font-semibold rounded-xl shadow-lg hover:bg-gray-50 transition-colors"
             >
               <Download className="w-5 h-5 mr-2" />
               Get Started Free
-            </motion.button>
+            </motion.a>
           </motion.div>
         </div>
       </section>
 
       <Footer />
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setIsVideoModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-6xl aspect-video bg-black rounded-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <video
+                className="w-full h-full object-contain"
+                controls
+                autoPlay
+                preload="metadata"
+              >
+                <source src="https://res.cloudinary.com/dngg2bd91/video/upload/v1754669613/TaskAdventurerIntroLow_pxfpkb.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 } 

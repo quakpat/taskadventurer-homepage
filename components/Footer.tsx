@@ -61,7 +61,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                <a href="https://apps.apple.com/ch/app/taskadventurer/id6749378064?l=en-GB" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                   Download
                 </a>
               </li>
